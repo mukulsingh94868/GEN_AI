@@ -1,6 +1,6 @@
-const express = require("express")
-const cookieParser = require("cookie-parser")
-const cors = require("cors")
+import express from "express"
+import cookieParser from "cookie-parser"
+import cors from "cors"
 
 const app = express()
 
@@ -15,8 +15,8 @@ app.use(express.static("public"))
 // app.use(cors())
 
 /* require all the routes here */
-const authRouter = require("./routes/auth.routes")
-const interviewRouter = require("./routes/interview.routes")
+import authRouter from "./routes/auth.routes.js";
+import interviewRouter from "./routes/interview.routes.js";
 
 
 /* using all the routes here */
@@ -25,4 +25,4 @@ app.use("/api/interview", interviewRouter)
 
 
 
-module.exports = app
+export default app
