@@ -24,6 +24,7 @@ const Login = () => {
 
     return (
         <main>
+            <p>{import.meta.env.VITE_APP_BASE_URL}</p>
             <div className="form-container">
                 <h1>Login Here</h1>
                 <form onSubmit={handleSubmit}>
