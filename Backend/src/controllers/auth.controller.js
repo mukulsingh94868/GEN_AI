@@ -1,7 +1,7 @@
-import userModel from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import tokenBlacklistModel from "../models/blacklist.model.js";
+import userModel from "../models/user.model.js";
 
 /**
  * @name registerUserController
@@ -65,9 +65,7 @@ async function registerUserController(req, res) {
 async function loginUserController(req, res) {
 
     const { email, password } = req.body
-    console.log('email', email, password);
     const user = await userModel.findOne({ email })
-    console.log('user', user);
 
     if (!user) {
         return res.status(400).json({
@@ -146,8 +144,7 @@ async function getMeController(req, res) {
 
 
 export {
-    registerUserController,
-    loginUserController,
-    logoutUserController,
-    getMeController
-}
+    getMeController, loginUserController,
+    logoutUserController, registerUserController
+};
+

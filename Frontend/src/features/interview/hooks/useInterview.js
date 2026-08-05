@@ -1,7 +1,7 @@
-import { getAllInterviewReports, generateInterviewReport, getInterviewReportById, generateResumePdf } from "../services/interview.api"
 import { useContext, useEffect } from "react"
-import { InterviewContext } from "../interview.context"
 import { useParams } from "react-router"
+import { InterviewContext } from "../interview.context"
+import { generateInterviewReport, generateResumePdf, getAllInterviewReports, getInterviewReportById } from "../services/interview.api"
 
 
 export const useInterview = () => {
@@ -22,7 +22,7 @@ export const useInterview = () => {
             response = await generateInterviewReport({ jobDescription, selfDescription, resumeFile })
             setReport(response.interviewReport)
         } catch (error) {
-            console.log(error)
+            console.error(error)
         } finally {
             setLoading(false)
         }
@@ -37,7 +37,7 @@ export const useInterview = () => {
             response = await getInterviewReportById(interviewId)
             setReport(response.interviewReport)
         } catch (error) {
-            console.log(error)
+            console.error(error)
         } finally {
             setLoading(false)
         }
@@ -51,7 +51,7 @@ export const useInterview = () => {
             response = await getAllInterviewReports()
             setReports(response.interviewReports)
         } catch (error) {
-            console.log(error)
+            console.error(error)
         } finally {
             setLoading(false)
         }
@@ -72,7 +72,7 @@ export const useInterview = () => {
             link.click()
         }
         catch (error) {
-            console.log(error)
+            console.error(error)
         } finally {
             setLoading(false)
         }

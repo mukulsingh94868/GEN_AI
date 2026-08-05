@@ -1,19 +1,20 @@
-import React, { useState, useRef } from 'react'
-import "../style/home.scss"
-import { useInterview } from '../hooks/useInterview.js'
+import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router'
+import Navbar from '../../auth/components/Navbar'
+import { useInterview } from '../hooks/useInterview.js'
+import "../style/home.scss"
 
 const Home = () => {
 
-    const { loading, generateReport,reports } = useInterview()
-    const [ jobDescription, setJobDescription ] = useState("")
-    const [ selfDescription, setSelfDescription ] = useState("")
+    const { loading, generateReport, reports } = useInterview()
+    const [jobDescription, setJobDescription] = useState("")
+    const [selfDescription, setSelfDescription] = useState("")
     const resumeInputRef = useRef()
 
     const navigate = useNavigate()
 
     const handleGenerateReport = async () => {
-        const resumeFile = resumeInputRef.current.files[ 0 ]
+        const resumeFile = resumeInputRef.current.files[0]
         const data = await generateReport({ jobDescription, selfDescription, resumeFile })
         navigate(`/interview/${data._id}`)
     }
@@ -28,6 +29,7 @@ const Home = () => {
 
     return (
         <div className='home-page'>
+            <Navbar />
 
             {/* Page Header */}
             <header className='page-header'>
@@ -114,6 +116,7 @@ const Home = () => {
                 <div className='interview-card__footer'>
                     <span className='footer-info'>AI-Powered Strategy Generation &bull; Approx 30s</span>
                     <button
+                        type='submit'
                         onClick={handleGenerateReport}
                         className='generate-btn'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" /></svg>
