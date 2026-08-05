@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_APP_BASE_URL,
+    baseURL: "https://gen-ai-backend-o828.onrender.com",
+    // baseURL: import.meta.env.VITE_APP_BASE_URL,
     withCredentials: true,
 })
 
