@@ -99,8 +99,11 @@
     padding: 1.75rem 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     gap: 1rem;
+
+    .nav-content {
+        flex: 1;
+    }
 
     &__label {
         font-size: $text-xs;
@@ -135,12 +138,13 @@
         }
 
         &--active {
-            background-color: rgba($accent-1, 0.12);
-            border-color: rgba($accent-1, 0.3);
-            color: color.mix(#fff, $accent-1, 25%);
+            color: #fff;
+            background: $gradient;
+            border-color: transparent;
+            box-shadow: 0 2px 12px rgba($accent-1, 0.35);
 
             .interview-nav__icon svg {
-                color: $accent-2;
+                color: #fff;
             }
         }
     }
@@ -156,8 +160,24 @@
         }
     }
 
+    &__actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
     &__download {
         width: 100%;
+        background-color: transparent;
+        color: $text-secondary;
+        border: 1px solid $border-color;
+        box-shadow: none;
+
+        &:hover {
+            border-color: $border-strong;
+            color: $text-primary;
+            background-color: $bg-hover;
+        }
     }
 
     &__practice {
@@ -572,6 +592,10 @@
 }
 
 // ── Responsive ────────────────────────────────────────────────────────────────
+.interview-mobile-actions {
+    display: none;
+}
+
 @media (max-width: 900px) {
     .interview-nav {
         width: 190px;
@@ -652,19 +676,23 @@
 
     .interview-nav {
         width: 100%;
-        flex-direction: row;
-        align-items: center;
-        gap: 0.5rem;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
         padding: 0.75rem;
         border-bottom: 1px solid $border-color;
 
         .nav-content {
             display: flex;
-            gap: 0.4rem;
+            gap: 0.5rem;
             overflow-x: auto;
-            flex: 1;
+            width: 100%;
+            flex: none;
             min-width: 0;
             scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            padding-bottom: 2px;
 
             &::-webkit-scrollbar {
                 display: none;
@@ -680,19 +708,32 @@
             width: auto;
             white-space: nowrap;
             font-size: $text-xs;
-            padding: 0.5rem 0.8rem;
+            padding: 0.55rem 0.9rem;
             gap: 0.4rem;
             border: 1px solid $border-color;
             margin-bottom: 0;
+            scroll-snap-align: start;
         }
 
-        &__download {
-            flex-shrink: 0;
-            width: auto;
-            padding: 0.5rem 0.9rem;
+        &__actions {
+            display: none;
+        }
+
+        &__download,
+        &__practice {
+            width: 100%;
+            padding: 0.55rem 0.9rem;
             font-size: $text-xs;
             border-radius: $radius-md;
         }
+    }
+
+    .interview-mobile-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+        padding: 0.5rem 0.25rem 0.75rem;
     }
 
     .interview-content {
