@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="ig-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6d6bff"/>
+      <stop offset="100%" stop-color="#31d0e7"/>
+    </linearGradient>
+    <linearGradient id="ig-star" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>
+      <stop offset="100%" stop-color="#e8eefc" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+  <rect x="24" y="24" width="208" height="208" rx="56" fill="url(#ig-bg)"/>
+  <rect x="24" y="24" width="208" height="208" rx="56" fill="#0f1526" opacity="0"/>
+  <path
+    d="M128 52l18.2 46.3L194 118l-47.8 19.7L128 184l-18.2-46.3L62 118l47.8-19.7z"
+    fill="url(#ig-star)"/>
+  <path
+    d="M188 158l7.4 18.8L214 184l-18.6 7.2L188 210l-7.4-18.8L162 184l18.6-7.2z"
+    fill="url(#ig-star)" opacity="0.85"/>
+</svg>

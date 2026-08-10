@@ -1,0 +1,64 @@
+// ════════════════════════════════════════════════════════════════════════════
+//  InterviewGenie — Design Tokens
+//  Single source of truth for the entire UI design system.
+// ════════════════════════════════════════════════════════════════════════════
+
+// ── Color ────────────────────────────────────────────────────────────────────
+$bg-base:        #05070e;   // page background (deepest navy-black)
+$bg-elevated:    #0a0f1d;   // section / shell surface
+$bg-surface:     #0f1526;   // card surface
+$bg-card:        #121a30;   // nested card surface
+$bg-input:       rgba(148, 163, 184, 0.06);
+$bg-hover:       rgba(148, 163, 184, 0.1);
+
+$border-color:   rgba(148, 163, 184, 0.14);
+$border-strong:  rgba(148, 163, 184, 0.22);
+
+$text-primary:   #e8eefc;
+$text-secondary: #a7b2c7;
+$text-muted:     #6c7789;
+
+$accent-1:       #6d6bff;   // indigo
+$accent-2:       #31d0e7;   // cyan
+$accent-3:       #a06bff;   // violet
+
+$gradient:       linear-gradient(135deg, $accent-1 0%, $accent-2 100%);
+$gradient-soft:  linear-gradient(135deg, rgba($accent-1, 0.18) 0%, rgba($accent-2, 0.18) 100%);
+
+$success:        #34d399;
+$warning:        #fbbf24;
+$danger:         #fb7185;
+
+// ── Typography ───────────────────────────────────────────────────────────────
+$font-display:   'Sora', 'Inter', system-ui, -apple-system, sans-serif;
+$font-body:      'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+$text-xs:  0.72rem;
+$text-sm:  0.8125rem;
+$text-base: 0.9375rem;
+$text-md:  1.0625rem;
+$text-lg:  1.25rem;
+$text-xl:  1.75rem;
+$text-2xl: 2.5rem;
+
+// ── Radius / Shadow ──────────────────────────────────────────────────────────
+$radius-sm: 0.5rem;
+$radius-md: 0.75rem;
+$radius-lg: 1rem;
+$radius-xl: 1.5rem;
+$radius-pill: 999px;
+
+$shadow-sm:  0 1px 2px rgba(0, 0, 0, 0.4);
+$shadow-md:  0 8px 24px rgba(0, 0, 0, 0.35);
+$shadow-glow: 0 0 0 1px rgba($accent-1, 0.35), 0 8px 32px rgba($accent-1, 0.28);
+$glow-cyan:   0 0 24px rgba($accent-2, 0.35);
+
+// ── Layout ───────────────────────────────────────────────────────────────────
+$container-max: 1180px;
+$content-max:   900px;
+$navbar-h:      72px;
+
+// ── Motion ───────────────────────────────────────────────────────────────────
+$ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+$speed-fast: 0.18s;
+$speed-med: 0.3s;

@@ -1,20 +1,69 @@
-.button{
+@use "./variables" as *;
 
+// ════════════════════════════════════════════════════════════════════════════
+//  Buttons
+// ════════════════════════════════════════════════════════════════════════════
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     border: none;
     outline: none;
-    padding-inline: 1.5rem;
-    padding-block: 0.75rem;
-    border-radius: 1rem;
+    padding: 0.7rem 1.4rem;
+    border-radius: $radius-md;
+    font-weight: 600;
+    font-size: $text-sm;
+    letter-spacing: 0.01em;
     cursor: pointer;
+    transition: all $speed-med $ease-out;
+    white-space: nowrap;
 
-    transition: all 0.3s ease-in-out;
-
-    &.primary-button{
-        background-color: #e1034d;
-        color: white;
+    &:focus-visible {
+        outline: 2px solid $accent-1;
+        outline-offset: 2px;
     }
 
-    &:active{
-        transform: scale(0.9);
+    &:active {
+        transform: scale(0.97);
+    }
+
+    &.primary-button {
+        position: relative;
+        color: #fff;
+        background: $gradient;
+        box-shadow: 0 4px 20px rgba($accent-1, 0.35);
+        overflow: hidden;
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.18);
+            opacity: 0;
+            transition: opacity $speed-med;
+        }
+
+        &:hover {
+            box-shadow: 0 6px 28px rgba($accent-1, 0.5);
+            transform: translateY(-1px);
+
+            &::after {
+                opacity: 1;
+            }
+        }
+    }
+
+    &.ghost-button {
+        background-color: transparent;
+        color: $text-secondary;
+        border: 1px solid $border-color;
+
+        &:hover {
+            border-color: $border-strong;
+            color: $text-primary;
+            background-color: $bg-hover;
+        }
     }
 }

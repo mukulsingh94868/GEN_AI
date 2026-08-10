@@ -1,57 +1,59 @@
-// ── Shared Variables (mirrors home.scss theme) ────────────────────────────────
-$bg-page: #0d1117;
-$bg-card: #161b22;
-$bg-panel: #1c2230;
-$bg-input: #1e2535;
-$border-color: #2a3348;
-$text-primary: #e6edf3;
-$text-muted: #7d8590;
-$accent: #ff2d78;
-$font-stack: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+@use "sass:color";
+@use "../../../style/variables" as *;
 
-// severity palette
-$severity-high: #ff4d4d;
-$severity-medium: #f5a623;
-$severity-low: #3fb950;
+// ════════════════════════════════════════════════════════════════════════════
+//  Interview page — 3-column workspace
+// ════════════════════════════════════════════════════════════════════════════
 
 *::-webkit-scrollbar {
-    display: none;
+    width: 8px;
+    height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba($text-muted, 0.35);
+    border-radius: $radius-pill;
 }
 
 // ── Page Shell ────────────────────────────────────────────────────────────────
 .interview-page {
     width: 100%;
     min-height: 100vh;
-    background-color: $bg-page;
     color: $text-primary;
-    font-family: $font-stack;
     display: flex;
     flex-direction: column;
     align-items: stretch;
     padding: 0 1.5rem 1.5rem;
-    box-sizing: border-box;
+    animation: fade-up 0.45s $ease-out both;
 }
 
 // ── 3-Column Layout ───────────────────────────────────────────────────────────
 .interview-layout {
     display: flex;
     width: 100%;
-    max-width: 1280px;
+    max-width: 1360px;
     margin: 0 auto;
-    background-color: $bg-card;
+    background-color: rgba($bg-surface, 0.72);
     border: 1px solid $border-color;
-    border-radius: 1rem;
+    border-radius: $radius-xl;
     justify-content: space-between;
     flex: 1;
     overflow: hidden;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: $shadow-md;
 }
 
 // ── Back Button ────────────────────────────────────────────────────────────────
 .interview-back-row {
     width: 100%;
-    max-width: 1280px;
+    max-width: 1360px;
     margin: 0 auto;
-    padding: 0.75rem 0 0;
+    padding: 1rem 0 0.75rem;
 }
 
 .interview-back-btn {
@@ -60,54 +62,51 @@ $severity-low: #3fb950;
     gap: 0.5rem;
     border: 1px solid $border-color;
     outline: none;
-    background-color: transparent;
-    color: $text-muted;
+    background-color: rgba($bg-surface, 0.5);
+    color: $text-secondary;
     padding: 0.5rem 1rem;
-    border-radius: 0.6rem;
-    font-family: $font-stack;
-    font-size: 0.875rem;
+    border-radius: $radius-md;
+    font-size: $text-sm;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    transition: all $speed-med $ease-out;
 
     svg {
         flex-shrink: 0;
     }
 
     &:hover {
-        background-color: $bg-panel;
+        background-color: $bg-hover;
         color: $text-primary;
-        border-color: lighten($border-color, 8%);
+        border-color: $border-strong;
+        transform: translateX(-2px);
     }
 
     &:active {
-        transform: scale(0.95);
+        transform: scale(0.97);
     }
 }
 
 .interview-divider {
     width: 1px;
-    background-color: $border-color;
+    background: linear-gradient(to bottom, transparent, $border-strong, transparent);
     flex-shrink: 0;
 }
 
 // ── Left Nav ─────────────────────────────────────────────────────────────────
 .interview-nav {
-    width: 220px;
+    width: 228px;
     flex-shrink: 0;
     padding: 1.75rem 1rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 0.25rem;
-
-
-
+    gap: 1rem;
 
     &__label {
-        font-size: 0.7rem;
+        font-size: $text-xs;
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.1em;
         color: $text-muted;
         padding: 0 0.75rem;
         margin-bottom: 0.5rem;
@@ -116,30 +115,32 @@ $severity-low: #3fb950;
     &__item {
         display: flex;
         align-items: center;
-        gap: 0.6rem;
+        gap: 0.65rem;
         width: 100%;
-        padding: 0.65rem 0.75rem;
+        padding: 0.7rem 0.8rem;
         background: none;
-        border: none;
-        border-radius: 0.5rem;
-        color: $text-muted;
-        font-family: $font-stack;
-        font-size: 0.875rem;
+        border: 1px solid transparent;
+        border-radius: $radius-md;
+        color: $text-secondary;
+        font-size: $text-sm;
+        font-weight: 500;
         cursor: pointer;
         text-align: left;
-        transition: background-color 0.15s, color 0.15s;
+        margin-bottom: 0.25rem;
+        transition: all $speed-fast;
 
         &:hover {
-            background-color: $bg-panel;
+            background-color: $bg-hover;
             color: $text-primary;
         }
 
         &--active {
-            background-color: rgba($accent, 0.1);
-            color: $accent;
+            background-color: rgba($accent-1, 0.12);
+            border-color: rgba($accent-1, 0.3);
+            color: color.mix(#fff, $accent-1, 25%);
 
             .interview-nav__icon svg {
-                stroke: $accent;
+                color: $accent-2;
             }
         }
     }
@@ -148,52 +149,75 @@ $severity-low: #3fb950;
         display: flex;
         align-items: center;
         flex-shrink: 0;
+
+        svg {
+            color: $text-muted;
+            transition: color $speed-fast;
+        }
+    }
+
+    &__download {
+        width: 100%;
     }
 }
 
 // ── Center Content ────────────────────────────────────────────────────────────
 .interview-content {
     flex: 1;
-    padding: 1.75rem 2rem;
+    padding: 1.75rem 2rem 2rem;
     overflow-y: auto;
-    min-height: initial;
-    max-height: calc(100vh - 3rem);
-    padding-bottom: 5rem;
-    align-items: flex-start;
-
-
-
-
-
-
-
-
-    section {
-        min-height: 100%;
-    }
+    max-height: calc(100vh - 8.5rem);
+    min-width: 0;
 }
 
 .content-header {
     display: flex;
-    align-items: baseline;
-    gap: 0.75rem;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
     margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
+    padding-bottom: 1.15rem;
     border-bottom: 1px solid $border-color;
 
-    h2 {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: $text-primary;
-        margin: 0;
+    &__title {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.7rem;
+
+        h2 {
+            font-size: $text-lg;
+            font-weight: 700;
+            color: $text-primary;
+            margin: 0;
+        }
+
+        p {
+            font-size: $text-xs;
+            color: $text-muted;
+            margin: 0.15rem 0 0;
+        }
+    }
+
+    &__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        border-radius: $radius-md;
+        background: rgba($accent-1, 0.12);
+        border: 1px solid rgba($accent-1, 0.25);
+        color: $accent-2;
+        flex-shrink: 0;
     }
 
     &__count {
-        font-size: 0.8rem;
-        color: $text-muted;
-        background-color: $bg-panel;
-        padding: 0.15rem 0.6rem;
-        border-radius: 2rem;
+        flex-shrink: 0;
+        font-size: $text-xs;
+        color: $text-secondary;
+        background-color: $bg-hover;
+        padding: 0.3rem 0.75rem;
+        border-radius: $radius-pill;
         border: 1px solid $border-color;
     }
 }
@@ -202,69 +226,75 @@ $severity-low: #3fb950;
 .q-list {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.8rem;
 }
 
 .q-card {
-    background-color: $bg-panel;
+    background-color: rgba($bg-card, 0.6);
     border: 1px solid $border-color;
-    border-radius: 0.6rem;
+    border-radius: $radius-lg;
     overflow: hidden;
-    transition: border-color 0.2s;
+    transition: border-color $speed-fast, box-shadow $speed-fast;
 
     &:hover {
-        border-color: lighten($border-color, 8%);
+        border-color: $border-strong;
+    }
+
+    &--open {
+        border-color: rgba($accent-1, 0.4);
+        box-shadow: 0 0 0 1px rgba($accent-1, 0.15);
     }
 
     &__header {
         display: flex;
         align-items: flex-start;
-        gap: 0.75rem;
-        padding: 0.9rem 1rem;
+        gap: 0.8rem;
+        padding: 1rem 1.1rem;
         cursor: pointer;
         user-select: none;
     }
 
     &__index {
         flex-shrink: 0;
-        font-size: 0.7rem;
+        font-size: $text-xs;
         font-weight: 700;
-        color: $accent;
-        background-color: rgba($accent, 0.1);
-        border: 1px solid rgba($accent, 0.2);
-        border-radius: 0.3rem;
-        padding: 0.15rem 0.4rem;
-        margin-top: 2px;
+        font-family: $font-display;
+        color: $accent-2;
+        background-color: rgba($accent-1, 0.12);
+        border: 1px solid rgba($accent-1, 0.3);
+        border-radius: $radius-sm;
+        padding: 0.2rem 0.5rem;
+        margin-top: 1px;
     }
 
     &__question {
         flex: 1;
         margin: 0;
-        font-size: 0.9rem;
+        font-size: $text-sm;
         font-weight: 500;
         color: $text-primary;
-        line-height: 1.5;
+        line-height: 1.55;
     }
 
     &__chevron {
         flex-shrink: 0;
         color: $text-muted;
-        transition: transform 0.2s;
+        transition: transform $speed-med $ease-out, color $speed-fast;
         margin-top: 2px;
 
         &--open {
             transform: rotate(180deg);
-            color: $accent;
+            color: $accent-2;
         }
     }
 
     &__body {
-        padding: 0 1rem 1rem;
+        padding: 1rem 1.1rem 1.1rem;
         display: flex;
         flex-direction: column;
-        gap: 0.75rem;
+        gap: 0.9rem;
         border-top: 1px solid $border-color;
-        padding-top: 0.75rem;
+        background-color: rgba($bg-base, 0.35);
     }
 
     &__section {
@@ -274,31 +304,31 @@ $severity-low: #3fb950;
 
         p {
             margin: 0;
-            font-size: 0.835rem;
-            color: lighten($text-muted, 15%);
-            line-height: 1.6;
+            font-size: $text-sm;
+            color: $text-secondary;
+            line-height: 1.65;
         }
     }
 
     &__tag {
-        font-size: 0.68rem;
+        font-size: $text-xs;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.06em;
-        padding: 0.15rem 0.5rem;
-        border-radius: 0.25rem;
+        padding: 0.2rem 0.6rem;
+        border-radius: $radius-pill;
         width: fit-content;
 
         &--intention {
-            color: #a78bfa;
-            background-color: rgba(#a78bfa, 0.1);
-            border: 1px solid rgba(#a78bfa, 0.2);
+            color: $accent-3;
+            background-color: rgba($accent-3, 0.12);
+            border: 1px solid rgba($accent-3, 0.28);
         }
 
         &--answer {
-            color: #3fb950;
-            background-color: rgba(#3fb950, 0.1);
-            border: 1px solid rgba(#3fb950, 0.2);
+            color: $success;
+            background-color: rgba($success, 0.1);
+            border: 1px solid rgba($success, 0.26);
         }
     }
 }
@@ -310,7 +340,6 @@ $severity-low: #3fb950;
     gap: 0;
     position: relative;
 
-    // vertical timeline line
     &::before {
         content: '';
         position: absolute;
@@ -318,7 +347,7 @@ $severity-low: #3fb950;
         top: 0;
         bottom: 0;
         width: 2px;
-        background: linear-gradient(to bottom, $accent, rgba($accent, 0.1));
+        background: linear-gradient(to bottom, $accent-1, $accent-2, rgba($accent-2, 0.1));
         border-radius: 1px;
     }
 }
@@ -326,42 +355,44 @@ $severity-low: #3fb950;
 .roadmap-day {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    padding: 0.75rem 0 0.75rem 3.5rem;
+    gap: 0.55rem;
+    padding: 0.85rem 0 0.85rem 3.6rem;
     position: relative;
 
-    // dot on timeline
     &::before {
         content: '';
         position: absolute;
         left: 21px;
-        top: 1.05rem;
-        width: 14px;
-        height: 14px;
+        top: 1.2rem;
+        width: 15px;
+        height: 15px;
         border-radius: 50%;
-        background-color: $bg-card;
-        border: 2px solid $accent;
+        background-color: $bg-surface;
+        border: 2px solid $accent-2;
+        box-shadow: 0 0 0 4px rgba($accent-2, 0.12);
     }
 
     &__header {
         display: flex;
         align-items: center;
         gap: 0.6rem;
+        flex-wrap: wrap;
     }
 
     &__badge {
-        font-size: 0.7rem;
+        font-size: $text-xs;
         font-weight: 700;
-        color: $accent;
-        background-color: rgba($accent, 0.1);
-        border: 1px solid rgba($accent, 0.25);
-        padding: 0.1rem 0.5rem;
-        border-radius: 2rem;
+        font-family: $font-display;
+        color: $accent-2;
+        background-color: rgba($accent-1, 0.1);
+        border: 1px solid rgba($accent-1, 0.3);
+        padding: 0.15rem 0.6rem;
+        border-radius: $radius-pill;
     }
 
     &__focus {
         margin: 0;
-        font-size: 0.95rem;
+        font-size: $text-md;
         font-weight: 600;
         color: $text-primary;
     }
@@ -372,41 +403,42 @@ $severity-low: #3fb950;
         padding: 0;
         display: flex;
         flex-direction: column;
-        gap: 0.35rem;
+        gap: 0.4rem;
 
         li {
             display: flex;
             align-items: flex-start;
-            gap: 0.5rem;
-            font-size: 0.845rem;
-            color: lighten($text-muted, 12%);
-            line-height: 1.5;
+            gap: 0.55rem;
+            font-size: $text-sm;
+            color: $text-secondary;
+            line-height: 1.6;
         }
     }
 
     &__bullet {
         flex-shrink: 0;
-        width: 5px;
-        height: 5px;
+        width: 6px;
+        height: 6px;
         border-radius: 50%;
         background-color: $text-muted;
-        margin-top: 8px;
+        margin-top: 9px;
     }
 }
 
 // ── Right Sidebar ─────────────────────────────────────────────────────────────
 .interview-sidebar {
-    width: 240px;
+    width: 250px;
     flex-shrink: 0;
-    padding: 1.75rem 1.25rem;
+    padding: 1.75rem 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1.4rem;
+    background-color: rgba($bg-elevated, 0.4);
 }
 
 .sidebar-divider {
     height: 1px;
-    background-color: $border-color;
+    background: linear-gradient(to right, transparent, $border-strong, transparent);
 }
 
 // Match Score
@@ -414,58 +446,57 @@ $severity-low: #3fb950;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.7rem;
 
     &__label {
-        font-size: 0.75rem;
+        font-size: $text-xs;
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.1em;
         color: $text-muted;
         margin: 0;
         align-self: flex-start;
     }
 
     &__ring {
-        width: 90px;
-        height: 90px;
+        width: 104px;
+        height: 104px;
         border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+    }
+
+    &__inner {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: $bg-surface;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        border: 4px solid;
-
-        &.score--high {
-            border-color: $severity-low;
-        }
-
-        &.score--mid {
-            border-color: $severity-medium;
-        }
-
-        &.score--low {
-            border-color: $severity-high;
-        }
     }
 
     &__value {
-        font-size: 1.6rem;
+        font-family: $font-display;
+        font-size: 1.7rem;
         font-weight: 800;
         color: $text-primary;
         line-height: 1;
     }
 
     &__pct {
-        font-size: 0.75rem;
+        font-size: $text-xs;
         color: $text-muted;
-        margin-top: -2px;
+        margin-top: 2px;
     }
 
     &__sub {
         margin: 0;
-        font-size: 0.75rem;
-        color: $severity-low;
+        font-size: $text-xs;
+        color: $success;
         text-align: center;
     }
 }
@@ -474,13 +505,13 @@ $severity-low: #3fb950;
 .skill-gaps {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.8rem;
 
     &__label {
-        font-size: 0.75rem;
+        font-size: $text-xs;
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.1em;
         color: $text-muted;
         margin: 0;
     }
@@ -493,33 +524,55 @@ $severity-low: #3fb950;
 }
 
 .skill-tag {
-    font-size: 0.775rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: $text-xs;
     font-weight: 500;
-    padding: 0.3rem 0.7rem;
-    border-radius: 0.4rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: $radius-pill;
     border: 1px solid;
     cursor: default;
 
+    &__dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: currentColor;
+        opacity: 0.8;
+    }
+
     &--high {
-        color: $severity-high;
-        background-color: rgba($severity-high, 0.1);
-        border-color: rgba($severity-high, 0.25);
+        color: $danger;
+        background-color: rgba($danger, 0.1);
+        border-color: rgba($danger, 0.28);
     }
 
     &--medium {
-        color: $severity-medium;
-        background-color: rgba($severity-medium, 0.1);
-        border-color: rgba($severity-medium, 0.25);
+        color: $warning;
+        background-color: rgba($warning, 0.1);
+        border-color: rgba($warning, 0.28);
     }
 
     &--low {
-        color: $severity-low;
-        background-color: rgba($severity-low, 0.1);
-        border-color: rgba($severity-low, 0.25);
+        color: $success;
+        background-color: rgba($success, 0.1);
+        border-color: rgba($success, 0.28);
     }
 }
 
 // ── Responsive ────────────────────────────────────────────────────────────────
+@media (max-width: 900px) {
+    .interview-nav {
+        width: 190px;
+    }
+
+    .interview-sidebar {
+        width: 210px;
+        padding: 1.5rem 1.1rem;
+    }
+}
+
 @media (max-width: 768px) {
     .interview-page {
         padding: 0 0.75rem 0.75rem;
@@ -538,7 +591,6 @@ $severity-low: #3fb950;
         display: none;
     }
 
-    // Match score + skill gaps become a compact summary card on top
     .interview-sidebar {
         width: 100%;
         order: -1;
@@ -564,13 +616,13 @@ $severity-low: #3fb950;
             }
 
             &__ring {
-                width: 58px;
-                height: 58px;
-                border-width: 3px;
+                width: 64px;
+                height: 64px;
+                padding: 6px;
             }
 
             &__value {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
 
             &__sub {
@@ -588,7 +640,6 @@ $severity-low: #3fb950;
         }
     }
 
-    // Left nav becomes a horizontal, scrollable tab bar
     .interview-nav {
         width: 100%;
         flex-direction: row;
@@ -618,36 +669,26 @@ $severity-low: #3fb950;
             flex-shrink: 0;
             width: auto;
             white-space: nowrap;
-            font-size: 0.8rem;
-            padding: 0.5rem 0.75rem;
+            font-size: $text-xs;
+            padding: 0.5rem 0.8rem;
             gap: 0.4rem;
             border: 1px solid $border-color;
+            margin-bottom: 0;
         }
 
-        .button.primary-button {
+        &__download {
             flex-shrink: 0;
+            width: auto;
             padding: 0.5rem 0.9rem;
-            font-size: 0.8rem;
-            border-radius: 0.5rem;
-            display: flex;
-            align-items: center;
-
-            svg {
-                margin-right: 0.4rem;
-            }
+            font-size: $text-xs;
+            border-radius: $radius-md;
         }
     }
 
-    // Content flows naturally, no internal scroll
     .interview-content {
         max-height: none;
         overflow: visible;
         padding: 1.25rem 1rem;
-        padding-bottom: 1.25rem;
-
-        section {
-            min-height: 0;
-        }
     }
 
     .content-header {

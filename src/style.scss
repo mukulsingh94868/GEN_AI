@@ -1,9 +1,20 @@
+@use "./style/variables" as *;
 @use "./style/button.scss";
 
-* {
-    margin: 0%;
-    padding: 0%;
+// ════════════════════════════════════════════════════════════════════════════
+//  Global reset + base typography + ambient aurora background
+// ════════════════════════════════════════════════════════════════════════════
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 html,
@@ -11,15 +22,52 @@ body,
 #root {
     width: 100%;
     min-height: 100%;
-    background-color: #161616;
-    color: whitesmoke;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 body {
+    background-color: $bg-base;
+    color: $text-primary;
+    font-family: $font-body;
+    font-size: $text-base;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     -webkit-tap-highlight-color: transparent;
     overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+}
+
+// ── Ambient aurora backdrop ──────────────────────────────────────────────────
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(58rem 42rem at 12% -12%, rgba($accent-1, 0.16), transparent 60%),
+        radial-gradient(50rem 38rem at 108% 8%, rgba($accent-2, 0.12), transparent 60%),
+        radial-gradient(64rem 48rem at 50% 118%, rgba($accent-3, 0.12), transparent 62%);
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(70rem 55rem at 50% 0%, #000 20%, transparent 80%);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: $font-display;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
 }
 
 button,
@@ -27,26 +75,63 @@ input,
 textarea,
 select {
     font-family: inherit;
+    font-size: inherit;
 }
 
-.highlight{
-    color: #d20d3b;
+::selection {
+    background-color: rgba($accent-1, 0.35);
+    color: #fff;
 }
 
+.highlight {
+    background: $gradient;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+// ── Shared loading screen ────────────────────────────────────────────────────
 .loading-screen {
+    position: relative;
     min-height: 100vh;
     width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 1.25rem;
     padding: 1.5rem;
     text-align: center;
-    background-color: #0d1117;
-    color: #e6edf3;
+
+    .loader-spinner {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        border: 3px solid rgba($accent-1, 0.2);
+        border-top-color: $accent-1;
+        border-right-color: $accent-2;
+        animation: spin 0.9s linear infinite;
+    }
 
     h1 {
-        font-size: 1.25rem;
-        font-weight: 600;
-        line-height: 1.5;
+        font-size: $text-md;
+        font-weight: 500;
+        color: $text-secondary;
+    }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes fade-up {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 0.9375rem;
     }
 }

@@ -7,11 +7,17 @@ import "../style/home.scss"
 const Home = () => {
 
     const { loading, generateReport, reports } = useInterview()
-    const [jobDescription, setJobDescription] = useState("")
-    const [selfDescription, setSelfDescription] = useState("")
+    const [ jobDescription, setJobDescription ] = useState("")
+    const [ selfDescription, setSelfDescription ] = useState("")
+    const [ resumeName, setResumeName ] = useState("")
     const resumeInputRef = useRef()
 
     const navigate = useNavigate()
+
+    const handleFileChange = () => {
+        const file = resumeInputRef.current.files[0]
+        setResumeName(file ? file.name : "")
+    }
 
     const handleGenerateReport = async () => {
         const resumeFile = resumeInputRef.current.files[0]
@@ -22,19 +28,32 @@ const Home = () => {
     if (loading) {
         return (
             <main className='loading-screen'>
+                <div className='loader-spinner' />
                 <h1>Loading your interview plan...</h1>
             </main>
         )
     }
 
+    const scoreClass = (score) =>
+        score >= 80 ? 'score--high' : score >= 60 ? 'score--mid' : 'score--low'
+
     return (
         <div className='home-page'>
             <Navbar />
 
-            {/* Page Header */}
+            {/* Hero */}
             <header className='page-header'>
-                <h1>Create Your Custom <span className='highlight'>Interview Plan</span></h1>
-                <p>Let our AI analyze the job requirements and your unique profile to build a winning strategy.</p>
+                <span className='page-header__badge'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
+                    AI-Powered Interview Preparation
+                </span>
+                <h1>Build Your Custom <span className='highlight'>Interview Strategy</span></h1>
+                <p>Paste a job description, share your profile, and let AI craft the questions, roadmap, and skill gaps tailored to you.</p>
+                <div className='page-header__steps'>
+                    <span className='step'><b>01</b> Add job description</span>
+                    <span className='step'><b>02</b> Upload resume</span>
+                    <span className='step'><b>03</b> Get your plan</span>
+                </div>
             </header>
 
             {/* Main Card */}
@@ -56,7 +75,7 @@ const Home = () => {
                             placeholder={`Paste the full job description here...\ne.g. 'Senior Frontend Engineer at Google requires proficiency in React, TypeScript, and large-scale system design...'`}
                             maxLength={5000}
                         />
-                        <div className='char-counter'>0 / 5000 chars</div>
+                        <div className='char-counter'>{jobDescription.length} / 5000 chars</div>
                     </div>
 
                     {/* Vertical Divider */}
@@ -77,13 +96,23 @@ const Home = () => {
                                 Upload Resume
                                 <span className='badge badge--best'>Best Results</span>
                             </label>
-                            <label className='dropzone' htmlFor='resume'>
+                            <label className={`dropzone ${resumeName ? 'dropzone--filled' : ''}`} htmlFor='resume'>
                                 <span className='dropzone__icon'>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 16 12 12 8 16" /><line x1="12" y1="12" x2="12" y2="21" /><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3" /></svg>
                                 </span>
-                                <p className='dropzone__title'>Click to upload or drag &amp; drop</p>
-                                <p className='dropzone__subtitle'>PDF or DOCX (Max 5MB)</p>
-                                <input ref={resumeInputRef} hidden type='file' id='resume' name='resume' accept='.pdf,.docx' />
+                                {resumeName ? (
+                                    <p className='dropzone__title'>{resumeName}</p>
+                                ) : (
+                                    <>
+                                        <p className='dropzone__title'>Click to upload or drag &amp; drop</p>
+                                        <p className='dropzone__subtitle'>PDF or DOCX (Max 5MB)</p>
+                                    </>
+                                )}
+                                <input
+                                    ref={resumeInputRef}
+                                    onChange={handleFileChange}
+                                    hidden type='file' id='resume' name='resume' accept='.pdf,.docx'
+                                />
                             </label>
                         </div>
 
@@ -105,7 +134,7 @@ const Home = () => {
                         {/* Info Box */}
                         <div className='info-box'>
                             <span className='info-box__icon'>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" stroke="#1a1f27" strokeWidth="2" /><line x1="12" y1="16" x2="12.01" y2="16" stroke="#1a1f27" strokeWidth="2" /></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" /></svg>
                             </span>
                             <p>Either a <strong>Resume</strong> or a <strong>Self Description</strong> is required to generate a personalized plan.</p>
                         </div>
@@ -114,13 +143,16 @@ const Home = () => {
 
                 {/* Card Footer */}
                 <div className='interview-card__footer'>
-                    <span className='footer-info'>AI-Powered Strategy Generation &bull; Approx 30s</span>
+                    <span className='footer-info'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
+                        AI-Powered Strategy Generation &bull; Approx 30s
+                    </span>
                     <button
                         type='submit'
                         onClick={handleGenerateReport}
                         className='generate-btn'>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" /></svg>
                         Generate My Interview Strategy
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
                     </button>
                 </div>
             </div>
@@ -128,13 +160,22 @@ const Home = () => {
             {/* Recent Reports List */}
             {reports.length > 0 && (
                 <section className='recent-reports'>
-                    <h2>My Recent Interview Plans</h2>
+                    <div className='recent-reports__header'>
+                        <h2>My Recent Interview Plans</h2>
+                        <span className='recent-reports__count'>{reports.length} plan{reports.length > 1 ? 's' : ''}</span>
+                    </div>
                     <ul className='reports-list'>
                         {reports.map(report => (
                             <li key={report._id} className='report-item' onClick={() => navigate(`/interview/${report._id}`)}>
-                                <h3>{report.title || 'Untitled Position'}</h3>
+                                <div className='report-item__top'>
+                                    <h3>{report.title || 'Untitled Position'}</h3>
+                                    <span className={`report-item__score ${scoreClass(report.matchScore)}`}>{report.matchScore}%</span>
+                                </div>
                                 <p className='report-meta'>Generated on {new Date(report.createdAt).toLocaleDateString()}</p>
-                                <p className={`match-score ${report.matchScore >= 80 ? 'score--high' : report.matchScore >= 60 ? 'score--mid' : 'score--low'}`}>Match Score: {report.matchScore}%</p>
+                                <div className='report-item__bar'>
+                                    <span className={`report-item__bar-fill ${scoreClass(report.matchScore)}`} style={{ width: `${report.matchScore}%` }} />
+                                </div>
+                                <span className='report-item__open'>Open plan <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg></span>
                             </li>
                         ))}
                     </ul>
