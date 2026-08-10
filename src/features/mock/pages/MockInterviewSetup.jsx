@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
-import Navbar from "../../../auth/components/Navbar";
-import { useInterview } from "../../hooks/useInterview.js";
-import { useMockInterview } from "../hooks/useMockInterview";
-import { useToast } from "../../../../components/ui/toast.context";
+import Navbar from "../../auth/components/Navbar.jsx";
+import { useInterview } from "../../interview/hooks/useInterview.js";
+import { useMockInterview } from "../hooks/useMockInterview.js";
+import { useToast } from "../../../components/ui/toast.context.js";
 import "../style/mockInterview.scss";
 
 const INTERVIEW_TYPES = [
