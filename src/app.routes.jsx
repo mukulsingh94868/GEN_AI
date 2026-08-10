@@ -4,8 +4,8 @@ import Register from "./features/auth/pages/Register";
 import Protected from "./features/auth/components/Protected";
 import Home from "./features/interview/pages/Home";
 import Interview from "./features/interview/pages/Interview";
-import MockInterviewSetup from "./features/interview/mock/pages/MockInterviewSetup";
-import LiveMockInterview from "./features/interview/mock/pages/LiveMockInterview";
+import MockInterviewSetup from "./features/mock/pages/MockInterviewSetup";
+import LiveMockInterview from "./features/mock/pages/LiveMockInterview";
 
 
 export const router = createBrowserRouter([

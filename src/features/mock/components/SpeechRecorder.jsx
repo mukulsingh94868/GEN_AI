@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useToast } from "../../../../components/ui/toast.context";
+import { useToast } from "../../../components/ui/toast.context";
 import { useSpeechRecognition } from "../hooks/useSpeechRecognition";
 import AnswerTranscript from "./AnswerTranscript";
 

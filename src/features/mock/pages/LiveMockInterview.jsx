@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useMockInterview } from "../hooks/useMockInterview";
-import { useToast } from "../../../../components/ui/toast.context";
+import { useToast } from "../../../components/ui/toast.context";
 import AiInterviewOrb from "../components/AiInterviewOrb";
 import InterviewTimer from "../components/InterviewTimer";
 import InterviewProgress from "../components/InterviewProgress";
