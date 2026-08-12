@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_APP_BASE_URL,
-  // baseURL: "http://localhost:5000",
+  // baseURL: import.meta.env.VITE_APP_BASE_URL,
+  baseURL: "http://localhost:5000",
   withCredentials: true,
 });
 
@@ -29,24 +29,12 @@ export async function register({ username, email, password }) {
 }
 
 export async function login({ email, password }) {
-  try {
     const response = await api.post("/api/auth/login", {
-      email,
-      password,
+        email,
+        password,
     });
 
     return response.data;
-  } catch (err) {
-    console.log(err);
-
-    if (err.response) {
-      console.log("Response:", err.response.data);
-    }
-
-    if (err.request) {
-      console.log("Request:", err.request);
-    }
-  }
 }
 
 export async function logout() {

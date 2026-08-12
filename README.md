@@ -8,8 +8,11 @@ This repository contains a frontend application built with Vite and React that d
 
 ## Features
 
-- Authentication (login / register)
-- Interview pages and context/hooks
+- Authentication (login / register) with error toasts on invalid credentials
+- AI interview report generation (job description + resume / self description)
+- Interview strategy pages with match scoring and recent report history
+- Live AI mock interviews (voice-driven) with per-answer evaluation
+- **Mock interview history** — view all past mock interview sessions as cards, and open any session to review the full AI report (overall/category scores, readiness, strengths & weaknesses, recommendations) plus a question-by-question answer review
 - Organized feature folders for easy extension
 
 ## Tech stack
@@ -23,6 +26,16 @@ This repository contains a frontend application built with Vite and React that d
 - `src/` — application source
   - `features/auth/` — auth pages, components, hooks, services
   - `features/interview/` — interview pages, services, styles
+  - `features/mock/` — mock interview setup, live session, report & history pages
+
+### Key routes
+
+- `/` — Home (interview strategy generation)
+- `/login`, `/register` — Authentication
+- `/mock-interview` — Configure and start a new mock interview
+- `/mock-interview/:mockInterviewId` — Live mock interview session / report
+- `/mock-interviews` — All mock interview sessions as cards
+- `/mock-interviews/:mockInterviewId` — Full mock interview report detail
 
 Top-level files: `package.json`, `vite.config.js`, `vercel.json`.
 

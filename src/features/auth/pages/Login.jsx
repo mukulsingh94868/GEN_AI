@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router'
 import "../auth.form.scss"
 import { useAuth } from '../hooks/useAuth'
+import { useToast } from '../../../components/ui/toast.context'
 
 const Login = () => {
 
     const { loading, handleLogin } = useAuth()
+    const toast = useToast()
     const navigate = useNavigate()
 
     const [ email, setEmail ] = useState("")
@@ -13,8 +15,13 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await handleLogin({ email, password })
-        navigate('/')
+        const result = await handleLogin({ email, password })
+
+        if (result.success) {
+            navigate('/')
+        } else {
+            toast(result.message, { type: "error" })
+        }
     }
 
     if (loading) {

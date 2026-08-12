@@ -6,6 +6,8 @@ import Home from "./features/interview/pages/Home";
 import Interview from "./features/interview/pages/Interview";
 import MockInterviewSetup from "./features/mock/pages/MockInterviewSetup";
 import LiveMockInterview from "./features/mock/pages/LiveMockInterview";
+import MockInterviewList from "./features/mock/pages/MockInterviewList";
+import MockInterviewDetail from "./features/mock/pages/MockInterviewDetail";
 
 
 export const router = createBrowserRouter([
@@ -32,5 +34,13 @@ export const router = createBrowserRouter([
     {
         path: "/mock-interview/:mockInterviewId",
         element: <Protected><LiveMockInterview /></Protected>
+    },
+    {
+        path: "/mock-interviews",
+        element: <Protected><MockInterviewList /></Protected>
+    },
+    {
+        path: "/mock-interviews/:mockInterviewId",
+        element: <Protected><MockInterviewDetail /></Protected>
     }
 ])

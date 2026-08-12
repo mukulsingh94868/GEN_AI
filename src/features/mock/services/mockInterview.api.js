@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_APP_BASE_URL,
-    // baseURL: "http://localhost:5000",
+    // baseURL: import.meta.env.VITE_APP_BASE_URL,
+    baseURL: "http://localhost:5000",
     withCredentials: true,
 })
 
@@ -26,8 +26,10 @@ export const createMockInterview = async ({ interviewReportId, interviewType, di
  * @description Answer the current question, evaluate it and generate the next question.
  */
 export const answerMockInterviewQuestion = async ({ mockInterviewId, answer }) => {
+    console.log('mockInterviewId', mockInterviewId);
+    console.log('answer', answer);
     const response = await api.post(`/api/mock-interview/${mockInterviewId}/answer`, { answer })
-
+    console.log('response123', response);
     return response.data
 }
 
