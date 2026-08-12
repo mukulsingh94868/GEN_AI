@@ -1,6 +1,6 @@
 # GEN_AI
 
-A small MERN + Vite starter focused on generative AI features and interview workflows.
+A MERN + Vite starter focused on generative AI features and interview workflows.
 
 ## Summary
 
